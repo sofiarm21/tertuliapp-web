@@ -4,6 +4,7 @@ import '../styles/globals.scss'
 
 import App from 'next/app'
 import Head from 'next/head'
+import withData from '../lib/apollo'
 import Layout from'../components/Layout'
 
 class MyApp extends App {
@@ -28,4 +29,4 @@ class MyApp extends App {
 }
 
 
-export default MyApp
+export default withData(MyApp)

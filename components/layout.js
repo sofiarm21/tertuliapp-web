@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Head from "next/head";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ const Layout = (props) => {
         </Navbar>
         <Container>
             <Row className='justify-content-center'>
-                <Col xs={10}>
+                <Col xs={12}>
                     {props.children}
                 </Col>
             </Row>
