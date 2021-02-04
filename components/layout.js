@@ -10,7 +10,7 @@ const Layout = (props) => {
     <div>
         <Navbar bg='primary' variant='dark' className='py-3'>
             <Navbar.Brand href='#home'>
-                Navbar
+                {`Tertuliapp`}
             </Navbar.Brand>
             <Nav className='ml-auto'>
                 <Nav.Link href="/home">Cursos</Nav.Link>

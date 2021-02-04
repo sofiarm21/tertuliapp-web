@@ -8,13 +8,13 @@ const CourseTile = (props) => {
         course
     } = props
 
-    console.log('course');
-    console.log(course);
-    console.log(process.env.NEXT_PUBLIC_API_URL);
-
     return (
         <Card>
-            <Card.Img variant='top' src={`http://localhost:1337/${course.image[0].url}`} />
+            <Card.Img
+                variant='top'
+                style={{ height: '18rem' }}
+                src={`http://localhost:1337${course.image[0].url}`}
+            />
             <Card.Body>
                 <Card.Title>
                     {`${course.name}`}
