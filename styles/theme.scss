@@ -5,4 +5,5 @@ $dark: #0091ae;
 $body-color:  #333;
 $body-bg: #f2f2f2;
 
+@import "./LectureTile.scss";
 @import "../node_modules/bootstrap/scss/bootstrap";

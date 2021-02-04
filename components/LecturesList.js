@@ -1,0 +1,52 @@
+import React from 'react'
+import { Card, Col, Row } from 'react-bootstrap'
+import { useQuery } from '@apollo/react-hooks'
+
+
+import CourseTile from './CourseTile'
+import { GET_COURSE_LECTURES } from '../operations/queries/CoursesQueries'
+
+import LectureTile from '../components/LectureTile'
+
+const LecturesList = (props) => {
+
+    const {
+        courseId
+    } = props
+
+    const {
+        loading: loadingLectures,
+        error: errorLectures,
+        data: dataLectures
+    } = useQuery(GET_COURSE_LECTURES, {
+        variables: {
+            id: courseId
+        }
+    })
+
+    if (errorLectures) return 'Error!'
+    if (loadingLectures) return 'Loading...'
+
+    const renderLectures = (lectures) => {
+        return lectures.map((l, i) => {
+            return (
+                <Col xs={6}>
+                    <LectureTile
+                        lecture={l}
+                        index={i}
+                    />
+                </Col>
+            )
+        })
+    }
+
+    const { course } = dataLectures
+
+    return (
+        <Row className='my-5'>
+            {renderLectures(course.lecciones)}
+        </Row>
+    )
+}
+
+export default LecturesList

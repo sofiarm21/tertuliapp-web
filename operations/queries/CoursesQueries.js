@@ -12,3 +12,21 @@ export const GET_COURSES_INFO = gql`
         }
     }
 `
+export const GET_COURSE_LECTURES = gql`
+    query($id: ID!) {
+        course(id: $id) {
+            id
+            name
+            description
+            image {
+                url
+            }
+            lecciones {
+                id
+                nombre
+                descripcion
+                orden
+            }
+        }
+    }
+`

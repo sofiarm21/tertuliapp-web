@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Card, Col, Button, Row } from 'react-bootstrap'
 
 const CourseTile = (props) => {
