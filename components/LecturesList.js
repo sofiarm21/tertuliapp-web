@@ -3,10 +3,8 @@ import { Card, Col, Row } from 'react-bootstrap'
 import { useQuery } from '@apollo/react-hooks'
 
 
-import CourseTile from './CourseTile'
 import { GET_COURSE_LECTURES } from '../operations/queries/CoursesQueries'
-
-import LectureTile from '../components/LectureTile'
+import LectureTile from './LectureTile'
 
 const LecturesList = (props) => {
 
@@ -27,11 +25,16 @@ const LecturesList = (props) => {
     if (errorLectures) return 'Error!'
     if (loadingLectures) return 'Loading...'
 
-    const renderLectures = (lectures) => {
+    const renderLectures = (props) => {
+        const {
+            course,
+            lectures
+        } = props
         return lectures.map((l, i) => {
             return (
                 <Col xs={6}>
                     <LectureTile
+                        course={course}
                         lecture={l}
                         index={i}
                     />
@@ -44,7 +47,10 @@ const LecturesList = (props) => {
 
     return (
         <Row className='my-5'>
-            {renderLectures(course.lecciones)}
+            {renderLectures({
+                course: course,
+                lectures:course.lecciones
+            })}
         </Row>
     )
 }
