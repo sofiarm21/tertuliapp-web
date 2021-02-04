@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { Card, Col, Button, Row } from 'react-bootstrap'
 
 const CourseTile = (props) => {
@@ -21,9 +22,11 @@ const CourseTile = (props) => {
                 <Card.Text>
                     {`${course.description}`}
                 </Card.Text>
-                <Button variant="primary">
-                    {`Ver curso`}
-                </Button>
+                <Link href={`/course/${course.id}`}>
+                    <Button variant='primary'>
+                        {`Ver curso`}
+                    </Button>
+                </Link>
             </Card.Body>
         </Card>
     )

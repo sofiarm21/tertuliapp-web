@@ -13,9 +13,9 @@ const Layout = (props) => {
                 {`Tertuliapp`}
             </Navbar.Brand>
             <Nav className='ml-auto'>
-                <Nav.Link href="/home">Cursos</Nav.Link>
-                <Nav.Link href="/features">Foros</Nav.Link>
-                <Nav.Link href="/pricing">Mi progreso</Nav.Link>
+                <Nav.Link href='/courses'>Cursos</Nav.Link>
+                <Nav.Link href='/'>Foros</Nav.Link>
+                <Nav.Link href='/'>Mi progreso</Nav.Link>
             </Nav>
         </Navbar>
         <Container>
