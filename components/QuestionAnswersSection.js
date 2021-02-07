@@ -35,7 +35,7 @@ const QuestionAnswersSection = (props) => {
             setTimeout(() => {
                 changeEvaluationRecord({answer: answer})
                 setLoadingNextAnswer(false)
-            }, 5000)
+            }, 2000)
         }
     }
 

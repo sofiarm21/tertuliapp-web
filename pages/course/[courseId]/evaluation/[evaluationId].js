@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 import { useRouter } from 'next/router'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 
 import QuestionAnswersSection from '../../../../components/QuestionAnswersSection'
 import { GET_EVALUATION_DATA } from '../../../../operations/queries/EvaluationQueries'
+import { ADD_RESULTADO } from '../../../../operations/mutations/EvaluationMutations'
 
 
 function Evaluation() {
@@ -16,6 +17,10 @@ function Evaluation() {
     const [questions, setQuestions] = useState(null)
     const [questionsToRender, setQuestionsToRender] = useState([])
     const [endEvaluation, setEndEvaluation] = useState(false)
+
+    const [addResultado, { data: dataResultado, loading: loadingResultado, error: errorResultado }] = useMutation(ADD_RESULTADO, {
+
+    });
 
 
     const changeEvaluationRecord = ({answer}) => {
@@ -33,6 +38,17 @@ function Evaluation() {
             }
         }
     }, [evaluationRecord, questions])
+
+    useEffect(() => {
+        if (endEvaluation) {
+            addResultado({
+                variables: {
+                    evaluacion_id: evaluationId,
+                    calificacion: Number(evaluationRecord)
+                }
+            })
+        }
+    }, [endEvaluation])
 
     useEffect(() => {
         if (questionsToRender.length > 0 && evaluationRecord != null){
@@ -97,6 +113,8 @@ function Evaluation() {
         setQuestions(preguntas)
     }
 
+    console.log('dataResultado');
+    console.log(dataResultado);
 
     return (
         <Row className='Evaluation my-5'>
@@ -115,10 +133,13 @@ function Evaluation() {
                         <h5>
                             {'Ha terminado la conversación'}
                         </h5>
+                        
                         <Button
                         >
                             {`Ver resultados`}
                         </Button>
+                        {`${loadingResultado}`}
+                        {`${dataResultado}`}
                     </>
                 }
             </Col>
