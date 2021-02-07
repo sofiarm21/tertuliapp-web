@@ -15,53 +15,33 @@ function Evaluation() {
     const [evaluationRecord, setEvaluationRecord] = useState(null)
     const [questions, setQuestions] = useState(null)
     const [questionsToRender, setQuestionsToRender] = useState([])
+    const [endEvaluation, setEndEvaluation] = useState(false)
 
 
     const changeEvaluationRecord = ({answer}) => {
-        console.log('changeEvaluationRecord');
         if (evaluationRecord){
             setEvaluationRecord(evaluationRecord + answer.valoracion)
         }else {
             setEvaluationRecord(answer.valoracion)
         }
-
-
     }
 
-    // useEffect(() => {
-    //     console.log('evaluationRecord');
-    //     console.log(evaluationRecord);
-    //     console.log('questionsRender.length');
-    //     console.log(questionsToRender.length);
-    //     if (questionsToRender.length > 0){
-    //         renderNextQuestion({questions: questions})
-    //     }
-    // }, [evaluationRecord])
+    useEffect(() => {
+        if (questions){
+            if (questionsToRender.length >= questions.length ){
+                setEndEvaluation(true)
+            }
+        }
+    }, [evaluationRecord, questions])
 
     useEffect(() => {
-        console.log('questionsToRender');
-        console.log(questionsToRender);
-        console.log(questionsToRender.length);
-        console.log('questionsToRender');
-        console.log(questionsToRender);
-        console.log(questionsToRender.length);
         if (questionsToRender.length > 0 && evaluationRecord != null){
-            console.log('renderNextQuestion');
             renderNextQuestion({questions: questions})
         }
-    }, [questionsToRender, evaluationRecord])
-
-
+    }, [questionsToRender, evaluationRecord, questions])
 
 
     const renderNextQuestion = ({questions}) => {
-        console.log('questions');
-        console.log(questions);
-        console.log('questionsToRender');
-        console.log(questionsToRender);
-        console.log('questions[questionsToRender.length]');
-        console.log(questions[questionsToRender.length - 1]);
-        console.log(questions[questionsToRender.length - 1].respuestas);
         if (questionsToRender.length  < questions.length){
             setQuestionsToRender(questionsToRender.concat(
                 <QuestionAnswersSection
@@ -125,13 +105,22 @@ function Evaluation() {
                     {`Realizar evaluación ${evaluationId}`}
                 </h3>
                 { questionsToRender.length == 0  &&
-
                     renderQuestionWithAnwers({
-                    questions: preguntas
+                        questions: preguntas
                     })
-
                 }
                 {questionsToRender}
+                {endEvaluation  &&
+                    <>
+                        <h5>
+                            {'Ha terminado la conversación'}
+                        </h5>
+                        <Button
+                        >
+                            {`Ver resultados`}
+                        </Button>
+                    </>
+                }
             </Col>
         </Row>
     )

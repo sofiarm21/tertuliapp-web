@@ -93,9 +93,9 @@ const QuestionAnswersSection = (props) => {
             <Col xs={12}>
                 {
                     loadingNextAnswer &&
-                    <p className='text-end fs-1 fst-italic'>
-                        Escribiendo...
-                    </p>
+                    <h4>
+                        {`Escribiendo...`}
+                    </h4>
                 }
             </Col>
         </Row>
