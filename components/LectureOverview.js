@@ -9,38 +9,23 @@ import LectureTile from './LectureTile'
 const LectureOverview = (props) => {
 
     const {
-        lectureId
+        lectureInfo
     } = props
-
-    const {
-        loading: loadingLecture,
-        error: errorLecture,
-        data: dataLecture
-    } = useQuery(GET_LECTURE_INFO, {
-        variables: {
-            id: lectureId
-        }
-    })
-
-    if (errorLecture) return 'Error!'
-    if (loadingLecture) return 'Loading...'
-
-    const { leccione } = dataLecture
 
     return (
         <Row className='LectureOverview my-5'>
             <Col xs={12}>
                 <Image
-                    src={`http://localhost:1337${leccione.cover[0].url}`}
+                    src={`http://localhost:1337${lectureInfo.cover[0].url}`}
                     fluid
                     className='mb-4'
                     style={{height: '500px', width:'100%'}}
                 />
                 <h1>
-                    {`${leccione.nombre}`}
+                    {`${lectureInfo.nombre}`}
                 </h1>
                 <p>
-                    {`${leccione.descripcion}`}
+                    {`${lectureInfo.descripcion}`}
                 </p>
             </Col>
         </Row>

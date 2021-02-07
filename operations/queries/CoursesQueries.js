@@ -30,3 +30,24 @@ export const GET_COURSE_LECTURES = gql`
         }
     }
 `
+export const GET_COURSE_EVALUATIONS = gql`
+    query($id: ID!) {
+        course(id: $id) {
+            id
+            evaluaciones {
+              	id
+              	titulo
+             	descripcion
+              	preguntas {
+                		id
+                		pregunta
+                		respuestas {
+                  		id
+                  		mensaje
+                  		valoracion
+               			}
+              	}
+            }
+        }
+    }
+`

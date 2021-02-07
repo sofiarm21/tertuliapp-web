@@ -11,13 +11,28 @@ export const GET_LECTURE_INFO = gql`
             }
             temas {
                 id
-                orden
                 nombre
                 contenido
+                orden
                 cover {
+                    id
                     url
                 }
             }
         }
+    }
+`
+
+export const GET_LECTURE_TOPICS = gql`
+    query($id: ID!) {
+      leccione(id: $id){
+        id
+        temas {
+          id
+          nombre
+          contenido
+          orden
+        }
+      }
     }
 `
