@@ -8,6 +8,7 @@ import { GET_LECTURE_INFO } from '../../../../operations/queries/LecturesQueries
 
 
 function Lecture() {
+    
     const router = useRouter()
     const lectureId = router.query.lectureId
 

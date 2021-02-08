@@ -1,34 +1,58 @@
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Button, Col, Row } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 import QuestionAnswersSection from '../../../../components/QuestionAnswersSection'
 import { GET_EVALUATION_DATA } from '../../../../operations/queries/EvaluationQueries'
-import { ADD_RESULTADO } from '../../../../operations/mutations/EvaluationMutations'
+import { ADD_RESULTADO, ADD_RESPUESTA_RESULTADO } from '../../../../operations/mutations/EvaluationMutations'
 
 
 function Evaluation() {
 
     const router = useRouter()
     const evaluationId = router.query.evaluationId
+    const courseId = router.query.courseId
     const questionsRender = []
     const [evaluationRecord, setEvaluationRecord] = useState(null)
     const [questions, setQuestions] = useState(null)
     const [questionsToRender, setQuestionsToRender] = useState([])
     const [endEvaluation, setEndEvaluation] = useState(false)
+    const [selectedAnswers, setSelectedAnswers] = useState([])
 
-    const [addResultado, { data: dataResultado, loading: loadingResultado, error: errorResultado }] = useMutation(ADD_RESULTADO, {
-
-    });
-
+    const [addResultado, {
+        data: dataResultado, loading: loadingResultado, error: errorResultado
+    }] = useMutation(ADD_RESULTADO, {
+        onCompleted: dataResultado => {
+            addToResultadoRespuesta({
+                resultadoId: dataResultado.createResultado.resultado.id,
+                respuestasId: selectedAnswers
+            })
+        }
+    })
+    const [addRespuestaResultado,{
+        data: dataRespuestaResultado, loading: loadingRespuestaResultado, error: errorRespuestaResultado
+    }] = useMutation(ADD_RESPUESTA_RESULTADO)
 
     const changeEvaluationRecord = ({answer}) => {
+        setSelectedAnswers(selectedAnswers.concat(answer))
         if (evaluationRecord){
             setEvaluationRecord(evaluationRecord + answer.valoracion)
         }else {
             setEvaluationRecord(answer.valoracion)
         }
+    }
+
+    const addToResultadoRespuesta = ({resultadoId, respuestasId}) => {
+        respuestasId.map(r => {
+            addRespuestaResultado({
+                variables: {
+                    resultado_id: resultadoId,
+                    respuesta_id: Number(r.id)
+                }
+            })
+        })
     }
 
     useEffect(() => {
@@ -86,8 +110,6 @@ function Evaluation() {
         } = props
 
         if (!questionsToRender.length) {
-            console.log('questionsToRender');
-            console.log(questionsToRender);
             const newQuestionsToRender = []
             newQuestionsToRender.push(
                 <QuestionAnswersSection
@@ -113,9 +135,6 @@ function Evaluation() {
         setQuestions(preguntas)
     }
 
-    console.log('dataResultado');
-    console.log(dataResultado);
-
     return (
         <Row className='Evaluation my-5'>
             <Col xs={12}>
@@ -133,13 +152,16 @@ function Evaluation() {
                         <h5>
                             {'Ha terminado la conversación'}
                         </h5>
-                        
-                        <Button
-                        >
-                            {`Ver resultados`}
-                        </Button>
-                        {`${loadingResultado}`}
-                        {`${dataResultado}`}
+                        {
+                            dataResultado &&
+
+                            <Link href={`/course/${courseId}/evaluation/${evaluationId}/results/${dataResultado.createResultado.resultado.id}`}>
+                                <Button
+                                >
+                                    {`Ver resultados`}
+                                </Button>
+                            </Link>
+                        }
                     </>
                 }
             </Col>
