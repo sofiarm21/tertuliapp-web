@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/react-hooks'
 import { Button, Card, Col, Row, ProgressBar, Image } from 'react-bootstrap'
 import { differenceBy } from 'lodash'
+import moment from 'moment'
 
 
 import { GET_USER_PROGRESS } from '../../operations/queries/EvaluationQueries'
@@ -49,8 +50,6 @@ function Progress() {
             })
             successPercentage = Math.trunc(successPercentage / e.resultados.length)
 
-            console.log(e);
-
             return (
                 <Row>
                     <Col xs={4}>
@@ -69,7 +68,8 @@ function Progress() {
                                 <h6 className='mt-3'>
                                     {`Última vez realizada`}
                                 </h6>
-                                    {`${e.resultados[e.resultados.length - 1].created_at}`}
+                                {`${moment(e.resultados[e.resultados.length - 1].created_at)}`}
+
                             </Card.Body>
                         </Card>
                     </Col>
@@ -104,11 +104,13 @@ function Progress() {
                         </h3>
                         <Row>
                             <Col xs={1}>
-                                <Image src='../../public/favicon.ico' roundedCircle />
+                                <Image src='../../images/personicon.jpeg' roundedCircle />
                             </Col>
                             <Col xs={11}>
                                 <h6>
-                                {`GusGus`}
+                                    <strong>
+                                        {`GusGus`}
+                                    </strong>
                                 </h6>
                             </Col>
                          </Row>
