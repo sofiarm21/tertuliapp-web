@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Col, Row } from 'react-bootstrap'
+import { Button, Card, Col, Row, Toast } from 'react-bootstrap'
 
 const QuestionAnswersSection = (props) => {
 
@@ -56,21 +56,21 @@ const QuestionAnswersSection = (props) => {
             return (
                 <Row className='mt-2'>
                     <Col xs={{ span: 4, offset: 8 }}>
-                        <Card
+                        <Button
                             body
-                            bg={
+                            variant={
                                 `${
                                     selectedAnswer
                                     ? selectedAnswer.id == a.id
                                         ? selecteAnswerColor({answerValue: a.valoracion})
-                                        : 'dark'
-                                    : 'dark'}`
+                                        : 'info'
+                                    : 'info'}`
                                 }
                             text='light'
                             onClick={() => selectAnswer({answer: a})}
                         >
                             {`${a.mensaje}`}
-                        </Card>
+                        </Button>
                     </Col>
                 </Row>
             )
@@ -81,9 +81,17 @@ const QuestionAnswersSection = (props) => {
     return (
         <Row className='QuestionAnswersSection my-5'>
             <Col xs={4}>
-                <Card body>
-                    {`${question.pregunta}`}
-                </Card>
+                <Toast>
+                    <Toast.Header>
+                        <strong className="mr-auto">
+                            Jefe
+                        </strong>
+                        <small>> 1 mins ago</small>
+                    </Toast.Header>
+                    <Toast.Body>
+                        {`${question.pregunta}`}
+                    </Toast.Body>
+                </Toast>
             </Col>
             <Col xs={12}>
                 {renderAnswers({

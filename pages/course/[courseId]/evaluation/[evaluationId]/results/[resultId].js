@@ -14,9 +14,6 @@ function Results() {
     const resultId = router.query.resultId
     const evaluationId = router.query.evaluationId
 
-    console.log('evaluationId');
-    console.log(evaluationId);
-
     const {
         loading: loadingResult,
         error: errorResult,
@@ -96,17 +93,17 @@ function Results() {
                 <h2 className='text-dark my-4'>
                     {`Resultados de la evaluación`}
                 </h2>
-                <h4 className='text-info mb-3'>
+                <h4 className='text-secondary mb-3'>
                     {`Puntaje`}
                 </h4>
                 <p>
                     {`${resultado.calificacion} de ${resultado.respuestas_resultados.length}`}
                 </p>
-                <h4 className='text-info mt-5 mb-3'>
+                <h4 className='text-secondary mt-5 mb-3'>
                     {`Nivel de satisfacción de la comunicación`}
                 </h4>
                 <ProgressBar striped variant='dark' now={successPercentage} label={`${successPercentage > 0 ? successPercentage : 0}%`}/>
-                <h4 className='text-info mt-5 mb-3'>
+                <h4 className='text-secondary mt-5 mb-3'>
                     {`Detalle de la prueba`}
                 </h4>
                 {renderQuestionAnswer({questions: evaluacion.preguntas, userAnswers: resultado.respuestas_resultados})}

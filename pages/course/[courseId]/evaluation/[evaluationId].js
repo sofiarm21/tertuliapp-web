@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Card, Button, Col, Row } from 'react-bootstrap'
+import { Card, Button, Col, Row, Toast } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
