@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { Col, Row } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 

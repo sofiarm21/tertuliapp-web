@@ -103,7 +103,7 @@ function Results() {
                     {`${resultado.calificacion} de ${resultado.respuestas_resultados.length}`}
                 </p>
                 <h4 className='text-info mt-5 mb-3'>
-                    {`Nivel de satisfacción del cliente`}
+                    {`Nivel de satisfacción de la comunicación`}
                 </h4>
                 <ProgressBar striped variant='dark' now={successPercentage} label={`${successPercentage > 0 ? successPercentage : 0}%`}/>
                 <h4 className='text-info mt-5 mb-3'>

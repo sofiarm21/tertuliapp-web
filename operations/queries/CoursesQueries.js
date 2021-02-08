@@ -39,14 +39,18 @@ export const GET_COURSE_EVALUATIONS = gql`
               	titulo
              	descripcion
               	preguntas {
-                		id
-                		pregunta
-                		respuestas {
-                  		id
-                  		mensaje
-                  		valoracion
-               			}
+            		id
+            		pregunta
+            		respuestas {
+              		    id
+              		    mensaje
+              	        valoracion
+           			}
               	}
+                resultados {
+                    calificacion
+                    created_at
+                }
             }
         }
     }
