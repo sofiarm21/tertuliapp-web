@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Button, Col, Row } from 'react-bootstrap'
+import { Card, Button, Col, Row } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
@@ -45,6 +45,7 @@ function Evaluation() {
     }
 
     const addToResultadoRespuesta = ({resultadoId, respuestasId}) => {
+        console.log('addToResultadoRespuesta');
         respuestasId.map(r => {
             addRespuestaResultado({
                 variables: {
@@ -57,11 +58,12 @@ function Evaluation() {
 
     useEffect(() => {
         if (questions){
-            if (questionsToRender.length >= questions.length ){
+            if (selectedAnswers.length == questions.length ){
                 setEndEvaluation(true)
             }
         }
-    }, [evaluationRecord, questions])
+    }, [selectedAnswers])
+
 
     useEffect(() => {
         if (endEvaluation) {
@@ -136,32 +138,39 @@ function Evaluation() {
     return (
         <Row className='Evaluation my-5'>
             <Col xs={12}>
-                <h3>
-                    {`Realizar evaluación ${evaluationId}`}
-                </h3>
-                { questionsToRender.length == 0  &&
-                    renderQuestionWithAnwers({
-                        questions: preguntas
-                    })
-                }
-                {questionsToRender}
-                {endEvaluation  &&
-                    <>
-                        <h5>
-                            {'Ha terminado la conversación'}
-                        </h5>
-                        {
-                            dataResultado &&
-
-                            <Link href={`/course/${courseId}/evaluation/${evaluationId}/results/${dataResultado.createResultado.resultado.id}`}>
-                                <Button
-                                >
-                                    {`Ver resultados`}
-                                </Button>
-                            </Link>
+                <Card>
+                    <Card.Body>
+                        <h3>
+                            {`Realizar evaluación ${evaluationId}`}
+                        </h3>
+                        { questionsToRender.length == 0  &&
+                            renderQuestionWithAnwers({
+                                questions: preguntas
+                            })
                         }
-                    </>
-                }
+                        {questionsToRender}
+                        {endEvaluation  &&
+                            <>
+                                <h5>
+                                    {'Ha terminado la conversación'}
+                                </h5>
+                                {
+                                    dataResultado &&
+
+                                    <Link
+                                        className='my-5'
+                                        href={`/course/${courseId}/evaluation/${evaluationId}/results/${dataResultado.createResultado.resultado.id}`}
+                                    >
+                                        <Button
+                                        >
+                                            {`Ver resultados`}
+                                        </Button>
+                                    </Link>
+                                }
+                            </>
+                        }
+                    </Card.Body>
+                </Card>
             </Col>
         </Row>
     )

@@ -10,7 +10,6 @@ import { GET_COURSES_INFO } from '../../operations/queries/CoursesQueries'
 import CourseTile from '../../components/CourseTile'
 
 
-
 function Progress() {
 
     const router = useRouter()
@@ -23,7 +22,6 @@ function Progress() {
     } = useQuery(GET_USER_PROGRESS)
 
     const { loading: loadingCourses, error: errorCourses, data: dataCourses } = useQuery(GET_COURSES_INFO)
-
 
     const renderCourses = ({courses}) => {
         return courses.map(c => {
@@ -53,7 +51,7 @@ function Progress() {
             return (
                 <Row>
                     <Col xs={4}>
-                        <Card   border='primary'>
+                        <Card border='primary'>
                             <Card.Body>
                                 <h5>
                                     {`${e.course.name}`}
@@ -95,7 +93,7 @@ function Progress() {
     const pendingCourses = differenceBy(allCourses, courses, 'id')
 
     return (
-        <Row>
+        <Row className='Progress my-4'>
             <Col xs={12}>
                 <Card className='my-4 px-3 pb-5'>
                     <Card.Body>
