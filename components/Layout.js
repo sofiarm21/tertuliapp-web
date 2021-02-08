@@ -14,7 +14,7 @@ const Layout = (props) => {
             </Navbar.Brand>
             <Nav className='ml-auto'>
                 <Nav.Link href='/courses'>Cursos</Nav.Link>
-                <Nav.Link href='/'>Foros</Nav.Link>
+                <Nav.Link href='/forums'>Foros</Nav.Link>
                 <Nav.Link href='/'>Mi progreso</Nav.Link>
             </Nav>
         </Navbar>
