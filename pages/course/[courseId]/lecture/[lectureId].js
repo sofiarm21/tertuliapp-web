@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Link from 'next/link'
 import { Button, Col, Row } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/react-hooks'
@@ -8,9 +8,10 @@ import { GET_LECTURE_INFO } from '../../../../operations/queries/LecturesQueries
 
 
 function Lecture() {
-    
+
     const router = useRouter()
     const lectureId = router.query.lectureId
+    const courseId = router.query.courseId
 
     const {
         loading: loadingLecture,
@@ -60,9 +61,11 @@ function Lecture() {
                 {renderTopics({topics: leccion.temas})}
             </Col>
             <Col xs={'auto'}>
-                <Button variant='dark'>
-                    {`Realizar evaluación`}
-                </Button>
+                <Link href={`/course/${courseId}`}>
+                    <Button variant='dark'>
+                        {`Regresar`}
+                    </Button>
+                </Link>
             </Col>
         </Row>
     )

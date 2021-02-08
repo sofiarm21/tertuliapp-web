@@ -122,8 +122,6 @@ function Evaluation() {
         }
     }
 
-
-
     if (errorEvaluation) return `Error ${errorEvaluation}`
     if (loadingEvaluation) return 'Loading...'
 
