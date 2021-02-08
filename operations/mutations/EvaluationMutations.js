@@ -15,3 +15,19 @@ export const ADD_RESULTADO = gql`
         }
     }
 `
+
+export const ADD_RESPUESTA_RESULTADO = gql`
+    mutation($respuesta_id: ID!, $resultado_id: ID!) {
+        createRespuestasResultado(input: {
+            data: {
+              respuesta: $respuesta_id,
+              resultado: $resultado_id
+            }
+        })
+        {
+            respuestasResultado {
+                id
+            }
+        }
+    }
+`
