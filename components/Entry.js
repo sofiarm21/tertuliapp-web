@@ -1,17 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Card, Accordion, Button } from 'react-bootstrap'
 
 import RichTextEditor from 'react-rte'
 import showdown from 'showdown'
 
 
-const Entry = ({contenido,created_at,id,usuario,respuesta}) => {
+const Entry = ({contenido,created_at,id,usuario,respuesta: respuestaS}) => {
 
     const converter = new showdown.Converter()
 
     if (!contenido) return null
 
     const [responseEntry,setResponseEntry] = useState(RichTextEditor.createEmptyValue);
+    const [respuesta, setRespuesta] = useState(respuestaS || [])
+
+    useEffect( () => {},
+    [respuesta]);
 
     return(
         <Card>
@@ -37,7 +41,25 @@ const Entry = ({contenido,created_at,id,usuario,respuesta}) => {
                                 value={responseEntry} 
                                 onChange={(value)=> {setResponseEntry(value)} } 
                             />
-                            <Button className="offset-11 text-white">
+                            <Button className="offset-11 text-white" 
+                            onClick={() => setRespuesta( (respuesta) => {
+                                respuesta.push(
+                                    {
+                                        id: "100",
+                                        usuario: {
+                                            username: "EnriqueZam",
+                                            id: 1
+                                        },
+                                        contenido: responseEntry.toString('markdown'),
+                                        created_at: new Date().toString(),
+                                        respuesta: []
+                                    }
+                                )
+                                    setResponseEntry(RichTextEditor.createEmptyValue)
+                                    return respuesta
+                                }
+                                
+                                )}>
                                 Publicar    
                             </Button>                
                         </Card.Body>

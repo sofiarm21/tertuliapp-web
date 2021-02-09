@@ -1,50 +1,62 @@
 import Link from 'next/link'
-import { Col, Row, Accordion, Card, Button, Badge } from 'react-bootstrap'
+import { useQuery } from '@apollo/react-hooks'
+import { Col, Row, Accordion, Card, Button, Badge, NavItem } from 'react-bootstrap'
 
 import CoursesList from '../components/CoursesList'
+import { GET_LECTURE_FORUMS } from '../operations/queries/LecturesQueries'
 
 function Forums() {
+
+    const { loading: loadingEntries, error: errorEntries, data: dataEntries } = useQuery(GET_LECTURE_FORUMS)
+
+
+    if (errorEntries) return 'Error!'
+    if (loadingEntries) return 'Loading...'
+
+    const entradas = dataEntries
 
     return (
         <Row>
             <Col xs={12}>
-            <Accordion defaultActiveKey="0">
-                <Card>
+            <Accordion defaultActiveKey="1">
+                { dataEntries.lecciones.map( ({id,nombre,foros},index) => 
+                foros.length > 0 && 
+                <Card key={id}>
                     <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        LECCION
+                    <Accordion.Toggle as={Button} variant="link" eventKey={id}>
+                        {nombre}
                     </Accordion.Toggle>
                     </Card.Header>
-                    <Accordion.Collapse eventKey="0">
+                    <Accordion.Collapse eventKey={id}>
                         <Row>
-                            <Col xs={12}>
+                            {foros.map( ({Titulo,Descripcion,id: idForo}) =>
+                            <Col xs={12} key={idForo}>
                                 <Card.Body>
                                     <Card.Title>
-                                        TITULO <Badge pill variant={"primary"} className="text-white">2</Badge>
+                                        {Titulo} 
+                                        <Badge pill variant={"primary"} className="text-white">
+                                            {/* TODO Este acceso no es el correcto si no es secuencial */}
+                                            {dataEntries.entradasConnection.groupBy.foro[idForo - 1].connection.aggregate.count}
+                                        </Badge>
                                     </Card.Title>
                                     <Card.Text>
-                                        Descripcion
+                                        {Descripcion}
                                     </Card.Text>
-                                    <Card.Link className="text-dark">
-                                        <Link href="/forum/1">
-                                        Card Link
-                                        </Link>
-                                    </Card.Link>
+                                    
+                                    <Link href={`/forum/${idForo}`}>
+                                        <Card.Link className="text-dark" href="">
+                                            Ver Foro
+                                        </Card.Link>
+                                    </Link>
+                                  
                                 </Card.Body>
-                            </Col>
+                            </Col>)
+                            }
                         </Row>
                     </Accordion.Collapse>
                 </Card>
-                <Card>
-                    <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                        Click me!
-                    </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="1">
-                    <Card.Body>Hello! I'm another body</Card.Body>
-                    </Accordion.Collapse>
-                </Card>
+                )
+            }
             </Accordion>
             </Col>
         </Row>

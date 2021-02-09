@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button, Col, Row } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/react-hooks'
+import showdown from 'showdown'
 
 import LectureOverview from '../../../../components/LectureOverview'
 import { GET_LECTURE_INFO } from '../../../../operations/queries/LecturesQueries'
@@ -12,6 +13,8 @@ function Lecture() {
     const router = useRouter()
     const lectureId = router.query.lectureId
     const courseId = router.query.courseId
+
+    const converter = new showdown.Converter()
 
     const {
         loading: loadingLecture,
@@ -32,9 +35,7 @@ function Lecture() {
                             {t.nombre}
                         </h2>
                     </Col>
-                <Col xs={{ span:6, order: i%2 }}>
-                    {t.contenido}
-                </Col>
+                <Col xs={{ span:6, order: i%2 }} dangerouslySetInnerHTML={{__html: converter.makeHtml(t.contenido)}}/>
                 <Col xs={{span:6, order: !i%2 }}>
                     <img
                         src={`http://localhost:1337${t.cover[0].url}`}

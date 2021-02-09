@@ -12,7 +12,7 @@ function Forum() {
     const router = useRouter()
     const forumId = router.query.forumId
 
-    const { loading: loadingEntries, error: errorEntries, data: dataEntries } = useQuery(GET_FORUM_ENTRIES, {variables: {id: '1'}})
+    const { loading: loadingEntries, error: errorEntries, data: dataEntries } = useQuery(GET_FORUM_ENTRIES, {variables: {id: forumId}})
 
     if (errorEntries) return 'Error!'
     if (loadingEntries) return 'Loading...'

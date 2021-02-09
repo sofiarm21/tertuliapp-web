@@ -40,11 +40,13 @@ export const GET_LECTURE_TOPICS = gql`
 export const GET_LECTURE_FORUMS = gql`
     query {
         lecciones {
-        foros {
             id
-            Titulo
-            Descripcion
-        }
+            nombre
+            foros {
+                id
+                Titulo
+                Descripcion
+            }
         }
         forosConnection {
         aggregate {
