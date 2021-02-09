@@ -37,15 +37,19 @@ function Evaluation() {
 
     const changeEvaluationRecord = ({answer}) => {
         setSelectedAnswers(selectedAnswers.concat(answer))
-        if (evaluationRecord){
-            setEvaluationRecord(evaluationRecord + answer.valoracion)
+        if (evaluationRecord != null){
+            const newRecord = evaluationRecord + answer.valoracion
+            if (!answer.valoracion) {
+                setEvaluationRecord(evaluationRecord + answer.valoracion + 1)
+            }else {
+                setEvaluationRecord(evaluationRecord + answer.valoracion)
+            }
         }else {
             setEvaluationRecord(answer.valoracion)
         }
     }
 
     const addToResultadoRespuesta = ({resultadoId, respuestasId}) => {
-        console.log('addToResultadoRespuesta');
         respuestasId.map(r => {
             addRespuestaResultado({
                 variables: {
@@ -58,7 +62,7 @@ function Evaluation() {
 
     useEffect(() => {
         if (questions){
-            if (selectedAnswers.length == questions.length ){
+            if (selectedAnswers.length == questions.length){
                 setEndEvaluation(true)
             }
         }
@@ -80,15 +84,14 @@ function Evaluation() {
         if (questionsToRender.length > 0 && evaluationRecord != null){
             renderNextQuestion({questions: questions})
         }
-    }, [questionsToRender, evaluationRecord, questions])
-
+    }, [evaluationRecord])
 
     const renderNextQuestion = ({questions}) => {
         if (questionsToRender.length  < questions.length){
             setQuestionsToRender(questionsToRender.concat(
                 <QuestionAnswersSection
-                    question={questions[questionsToRender.length - 1]}
-                    answers={questions[questionsToRender.length - 1].respuestas}
+                    question={questions[questionsToRender.length]}
+                    answers={questions[questionsToRender.length].respuestas}
                     changeEvaluationRecord={changeEvaluationRecord}
                 />
             ))

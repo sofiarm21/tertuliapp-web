@@ -17,14 +17,6 @@ const QuestionAnswersSection = (props) => {
             setLoadingNextAnswer(true)
         }
     }, [selectedAnswer])
-    //
-    // useEffect(() => {
-    //     if (!loadingNextAnswer) {
-    //         if (selectedAnswer) {
-    //             changeEvaluationRecord({answer: selectedAnswer})
-    //         }
-    //     }
-    // }, [loadingNextAnswer])
 
     const selectAnswer = ({answer}) => {
         setLoadingNextAnswer(true)
@@ -55,7 +47,7 @@ const QuestionAnswersSection = (props) => {
         return answers.map(a => {
             return (
                 <Row className='mt-2'>
-                    <Col xs={{ span: 4, offset: 8 }}>
+                    <Col xs={{ span: 6, offset: 6 }}>
                         <Button
                             body
                             variant={
@@ -84,7 +76,7 @@ const QuestionAnswersSection = (props) => {
                 <Toast>
                     <Toast.Header>
                         <strong className="mr-auto">
-                            Jefe
+                            {`Roger`}
                         </strong>
                         <small>> 1 mins ago</small>
                     </Toast.Header>

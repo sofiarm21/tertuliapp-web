@@ -101,13 +101,10 @@ function Progress() {
                             {`Usuario`}
                         </h3>
                         <Row>
-                            <Col xs={1}>
-                                <Image src='../../images/personicon.jpeg' roundedCircle />
-                            </Col>
-                            <Col xs={11}>
+                            <Col xs={12}>
                                 <h6>
                                     <strong>
-                                        {`GusGus`}
+                                        {`Guspin`}
                                     </strong>
                                 </h6>
                             </Col>

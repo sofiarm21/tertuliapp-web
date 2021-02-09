@@ -84,8 +84,7 @@ function Results() {
     const { evaluacion } = dataEvaluation
 
 
-    const successPercentage = ((resultado.calificacion * 100) / resultado.respuestas_resultados.length) / 2 + 50
-
+    const successPercentage = Math.trunc(((resultado.calificacion * 100) / resultado.respuestas_resultados.length) / 2 + 50)
 
     return (
         <Row className='Results my-5'>
@@ -94,10 +93,16 @@ function Results() {
                     {`Resultados de la evaluación`}
                 </h2>
                 <h4 className='text-secondary mb-3'>
-                    {`Puntaje`}
+                    {`Resultado`}
                 </h4>
                 <p>
-                    {`${resultado.calificacion} de ${resultado.respuestas_resultados.length}`}
+                    {`${
+                        resultado.calificacion < 0
+                        ? 'La comunicación no ha sido propicia, recomendamos repasar nuevamente el material del curso'
+                        : resultado.calificacion >= resultado.respuestas_resultados.length / 2
+                            ? 'La comunicación ha sido muy efectiva'
+                            : 'La comunicación ha sido regular, recomendamos repasar nuevamente el material del curso'
+                     }`}
                 </p>
                 <h4 className='text-secondary mt-5 mb-3'>
                     {`Nivel de satisfacción de la comunicación`}

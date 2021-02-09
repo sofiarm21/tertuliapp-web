@@ -36,7 +36,6 @@ const EvaluationsList = (props) => {
                     <Card
                         bg='primary'
                         text={'primary'.toLowerCase() === 'light' ? 'dark' : 'white'}
-                        style={{ width: '18rem' }}
                         className='mb-2'
                     >
                         <Card.Header>
