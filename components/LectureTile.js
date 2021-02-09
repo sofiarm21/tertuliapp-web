@@ -25,7 +25,7 @@ const LectureTile = (props) => {
                     <Col xs={12} className='my-3'>
                         <Link href={`/course/${course.id}/lecture/${lecture.id}`}>
                             <Button variant='dark'>
-                                {`Comnezar lección`}
+                                {`Comenzar lección`}
                             </Button>
                         </Link>
                     </Col>
