@@ -26,8 +26,12 @@ function Lecture() {
         }
     })
 
+
     const renderTopics = ({topics}) => {
         return topics.map((t,i) => {
+            console.log('t');
+            console.log(t);
+
             return (
                 <Row className='my-5'>
                     <Col xs={12} className='my-4'>
@@ -37,12 +41,14 @@ function Lecture() {
                     </Col>
                 <Col xs={{ span:6, order: i%2 }} dangerouslySetInnerHTML={{__html: converter.makeHtml(t.contenido)}}/>
                 <Col xs={{span:6, order: !i%2 }}>
-                    <img
-                        src={`http://localhost:1337${t.cover[0].url}`}
+                    { t.cover[0] &&
+                        <img
+                        src={`https://tertuliapp.herokuapp.com${t.cover[0].url}`}
                         fluid
                         className='mb-4'
                         style={{height: '500px', width:'100%'}}
                     />
+                }
                 </Col>
                 </Row>
             )

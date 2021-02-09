@@ -13,7 +13,7 @@ const CourseTile = (props) => {
             <Card.Img
                 variant='top'
                 style={{ height: '18rem' }}
-                src={`http://localhost:1337${course.image[0].url}`}
+                src={`https://tertuliapp.herokuapp.com${course.image[0].url}`}
             />
             <Card.Body>
                 <Card.Title>

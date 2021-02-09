@@ -16,7 +16,7 @@ const LectureOverview = (props) => {
         <Row className='LectureOverview my-5'>
             <Col xs={12}>
                 <Image
-                    src={`http://localhost:1337${lectureInfo.cover[0].url}`}
+                    src={`https://tertuliapp.herokuapp.com${lectureInfo.cover[0].url}`}
                     fluid
                     className='mb-4'
                     style={{height: '500px', width:'100%'}}
